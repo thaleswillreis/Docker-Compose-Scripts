@@ -1,0 +1,50 @@
+version: '3.9'
+
+services:
+  db:
+    image: mysql:8
+    cap_add:
+      - SYS_NICE
+    restart: always
+    container_name: mysql8-dev
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: proj_fullstack
+      MYSQL_USER: developer
+      MYSQL_PASSWORD: 1234567
+      MYSQL_ALLOW_EMPTY_PASSWORD: yes
+    ports:
+      - "3306:3306"
+    volumes:
+      - /home/dev/volumes-docker/mysql/db_data:/var/lib/mysql
+    networks:
+      - db-compose-network
+
+  adminer:
+    image: adminer:latest
+    restart: always
+    ports:
+      - "8082:8080"
+    networks:
+      - db-compose-network
+
+  cache:
+    image: redis:latest
+    restart: always
+    container_name: redis-dev
+    environment:
+      ALLOW_EMPTY_PASSWORD: yes
+    ports:
+      - "6379:6379"
+    volumes:
+      - /home/dev/volumes-docker/redis:/data
+    networks:
+      - db-compose-network
+
+volumes:
+    db_data:
+    redis:
+
+networks: 
+  db-compose-network:
+    driver: bridge
