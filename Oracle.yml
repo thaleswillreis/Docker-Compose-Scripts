@@ -1,0 +1,15 @@
+services:
+  oracle-xe:
+    image: container-registry.oracle.com/database/express:21.3.0-xe
+    container_name: oracle-xe
+    ports:
+      - "1521:1521"
+      - "5500:5500"
+    environment:
+      ORACLE_PWD: Oracle123
+      ORACLE_CHARACTERSET: AL32UTF8
+    volumes:
+      - "/home/will/Documentos/Analise de Dados/ProjetosBD/oracle-db-test/oradata:/opt/oracle/oradata"
+    shm_size: 1g
+    restart: unless-stopped
+
