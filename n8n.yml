@@ -1,0 +1,12 @@
+services:
+  n8n:
+    image: n8nio/n8n:latest
+    container_name: n8n-desktop-will
+    ports:
+      - "5678:5678"
+    environment:
+      - N8N_DEFAULT_BINARY_DATA_MODE=filesystem
+    volumes:
+      - "/home/will/Documentos/Analise de Dados/n8n-docker-volume:/home/node/.n8n"
+    restart: unless-stopped
+
